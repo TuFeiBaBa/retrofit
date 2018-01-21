@@ -162,7 +162,8 @@ public final class Retrofit {
   }
 
   /**
-   * 对service的方法进行缓存
+   * 对service的方法进行缓存，如果缓存中没有该方法，
+   * 就检查该方法，是否符合设计标准，符合，就放入缓存中
    * @param method
    * @return
    */
@@ -173,6 +174,7 @@ public final class Retrofit {
     synchronized (serviceMethodCache) {
       result = serviceMethodCache.get(method);
       if (result == null) {
+          //build的时候，会进行检查
         result = new ServiceMethod.Builder<>(this, method).build();
         serviceMethodCache.put(method, result);
       }

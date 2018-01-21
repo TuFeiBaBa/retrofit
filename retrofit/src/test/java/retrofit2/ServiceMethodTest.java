@@ -15,8 +15,9 @@
  */
 package retrofit2;
 
-import java.util.Set;
 import org.junit.Test;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
