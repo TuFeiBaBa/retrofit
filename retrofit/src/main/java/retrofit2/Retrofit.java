@@ -153,6 +153,7 @@ public final class Retrofit {
 
   private void eagerlyValidateMethods(Class<?> service) {
     Platform platform = Platform.get();
+    //遍历service所有方法，缓存service的所有方法
     for (Method method : service.getDeclaredMethods()) {
       if (!platform.isDefaultMethod(method)) {
         loadServiceMethod(method);
@@ -160,6 +161,11 @@ public final class Retrofit {
     }
   }
 
+  /**
+   * 对service的方法进行缓存
+   * @param method
+   * @return
+   */
   ServiceMethod<?, ?> loadServiceMethod(Method method) {
     ServiceMethod<?, ?> result = serviceMethodCache.get(method);
     if (result != null) return result;

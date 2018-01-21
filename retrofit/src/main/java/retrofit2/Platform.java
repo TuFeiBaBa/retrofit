@@ -18,12 +18,15 @@ package retrofit2;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+
+import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement;
+
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
+
 import javax.annotation.Nullable;
-import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement;
 
 class Platform {
   private static final Platform PLATFORM = findPlatform();
@@ -34,6 +37,10 @@ class Platform {
 
   private static Platform findPlatform() {
     try {
+      //A call to {@code forName("X")} causes the class named
+      // {@code X} to be initialized.
+      //Class.forName(xxx.xx.xx)的作用就是要求JVM查找并加载指定的类，
+      // 如果在类中有静态初始化器的话，JVM必然会执行该类的静态代码段。
       Class.forName("android.os.Build");
       if (Build.VERSION.SDK_INT != 0) {
         return new Android();

@@ -330,6 +330,11 @@ final class Utils {
     return paramType;
   }
 
+    /**
+     * 如果返回参数的组成中，有TypeVariable、WildcardType，就返回false
+     * @param type
+     * @return
+     */
   static boolean hasUnresolvableType(Type type) {
     if (type instanceof Class<?>) {
       return false;
@@ -352,6 +357,7 @@ final class Utils {
     if (type instanceof WildcardType) {
       return true;
     }
+    //现在一共就那五种Type吧？这是因为考虑到以后Java扩充？
     String className = type == null ? "null" : type.getClass().getName();
     throw new IllegalArgumentException("Expected a Class, ParameterizedType, or "
         + "GenericArrayType, but <" + type + "> is of type " + className);
